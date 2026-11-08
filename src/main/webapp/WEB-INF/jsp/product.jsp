@@ -17,6 +17,7 @@
 			<th>予約日時</th>
             <th>在庫数</th>
 			<th>説明</th>
+			<th>詳細</th>
         </tr>
 
         <s:iterator value="productList" var="product">
@@ -27,15 +28,15 @@
 				<td><s:property value="#product.reservation"/></td>
                 <td><s:property value="#product.stock"/></td>
 				<td><s:property value="#product.caption"/></td>
-                <td>
-                    <s:form action="productEdit" method="post">
-                        <s:hidden name="id" value="%{#product.id}"/>
-                        <s:submit value="編集"/>
-                    </s:form>
-                </td>
+				<td>
+				    <s:a action="productDetail">
+						<s:param name="id" value="%{#product.id}"/>
+						詳細
+					</s:a>
+				</td>
             </tr>
         </s:iterator>
     </table>
-	<a href="productCreate.action">新規商品登録</a>
+	<a href="new_product.action">新規商品登録</a>
 </body>
 </html>

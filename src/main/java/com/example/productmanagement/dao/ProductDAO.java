@@ -91,4 +91,41 @@ public class ProductDAO {
 
 	    return productList;
 	}
+
+	//詳細画面の処理
+	public Product findById(int id) throws Exception {
+
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    String sql = "SELECT * FROM products WHERE id = ?";
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setInt(1, id);
+
+	        try (ResultSet rs = pstmt.executeQuery()) {
+
+	            if (rs.next()) {
+	                Product product = new Product();
+
+	                product.setId(rs.getInt("id"));
+	                product.setName(rs.getString("name"));
+	                product.setPrice(rs.getInt("price"));
+
+	                Timestamp reservation = rs.getTimestamp("reservation");
+	                if (reservation != null) {
+	                    product.setReservation(reservation.toString());
+	                }
+
+	                product.setStock(rs.getInt("stock"));
+	                product.setCaption(rs.getString("caption"));
+
+	                return product;
+	            }
+	        }
+	    }
+
+	    return null;
+	}
 }

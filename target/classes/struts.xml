@@ -25,5 +25,10 @@
                 class="com.example.productmanagement.action.ProductListAction">
             <result name="success">/WEB-INF/jsp/product.jsp</result>
         </action>
+        <action name="productDetail"
+            class="com.example.productmanagement.action.ProductDetailAction">
+            <result name="success">/WEB-INF/jsp/productDetail.jsp</result>
+            <result name="error">/WEB-INF/jsp/productDetail.jsp</result>
+        </action>
     </package>
 </struts>

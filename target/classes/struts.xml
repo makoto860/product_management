@@ -30,5 +30,16 @@
             <result name="success">/WEB-INF/jsp/productDetail.jsp</result>
             <result name="error">/WEB-INF/jsp/productDetail.jsp</result>
         </action>
+        <!-- 商品編集画面 -->
+        <action name="productEdit"
+            class="com.example.productmanagement.action.ProductEditAction">
+            <result name="success">/WEB-INF/jsp/edit_product.jsp</result>
+            <result name="error">/WEB-INF/jsp/productDetail.jsp</result>
+        </action>
+        <!-- 商品更新処理 -->
+        <action name="productUpdate"
+            class="com.example.productmanagement.action.ProductUpdateAction">
+            <result name="success" type="redirectAction">product</result>
+        </action>
     </package>
 </struts>

@@ -34,6 +34,12 @@
 						詳細
 					</s:a>
 				</td>
+				<td>
+				    <s:a action="productEdit">
+				        <s:param name="id" value="%{#product.id}"/>
+				        編集
+				    </s:a>
+				</td>
             </tr>
         </s:iterator>
     </table>

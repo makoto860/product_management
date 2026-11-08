@@ -128,4 +128,47 @@ public class ProductDAO {
 
 	    return null;
 	}
+	
+	//編集機能
+	public void update(Product product) throws Exception {
+
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    String sql = "UPDATE products SET "
+	            + "name = ?, "
+	            + "price = ?, "
+	            + "reservation = ?, "
+	            + "stock = ?, "
+	            + "caption = ? "
+	            + "WHERE id = ?";
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setString(1, product.getName());
+	        pstmt.setInt(2, product.getPrice());
+
+	        if (product.getReservation() == null
+	                || product.getReservation().isBlank()) {
+
+	            pstmt.setNull(3, java.sql.Types.TIMESTAMP);
+
+	        } else {
+	            String reservation =
+	                    product.getReservation().replace("T", " ");
+
+	            if (reservation.length() == 16) {
+	                reservation += ":00";
+	            }
+
+	            pstmt.setTimestamp(3, Timestamp.valueOf(reservation));
+	        }
+
+	        pstmt.setInt(4, product.getStock());
+	        pstmt.setString(5, product.getCaption());
+	        pstmt.setInt(6, product.getId());
+
+	        pstmt.executeUpdate();
+	    }
+	}
 }

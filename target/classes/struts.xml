@@ -12,5 +12,18 @@
                 class="com.opensymphony.xwork2.ActionSupport">
             <result name="success">/WEB-INF/jsp/product.jsp</result>
         </action>
+        <action name="new_product"
+                class="com.opensymphony.xwork2.ActionSupport">
+            <result name="success">/WEB-INF/jsp/new_product.jsp</result>
+        </action>
+        <action name="productSave"
+                class="com.example.productmanagement.action.ProductAction">
+            <result name="success" type="redirectAction">
+                product
+            </result>
+            <result name="input">
+                /WEB-INF/jsp/new_product.jsp
+            </result>
+        </action>
     </package>
 </struts>

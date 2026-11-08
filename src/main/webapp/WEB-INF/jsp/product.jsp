@@ -1,5 +1,6 @@
  <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -16,7 +17,6 @@
 			<th>予約日時</th>
             <th>在庫数</th>
 			<th>説明</th>
-            <th>操作</th>
         </tr>
 
         <s:iterator value="productList" var="product">
@@ -36,8 +36,6 @@
             </tr>
         </s:iterator>
     </table>
-    <s:form action="productCreate" method="get">
-        <s:submit value="新規商品登録"/>
-    </s:form>
+	<a href="productCreate.action">新規商品登録</a>
 </body>
 </html>

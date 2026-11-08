@@ -8,10 +8,6 @@
              namespace="/">
 
         <!-- 初期画面 -->
-        <action name="product"
-                class="com.opensymphony.xwork2.ActionSupport">
-            <result name="success">/WEB-INF/jsp/product.jsp</result>
-        </action>
         <action name="new_product"
                 class="com.opensymphony.xwork2.ActionSupport">
             <result name="success">/WEB-INF/jsp/new_product.jsp</result>
@@ -24,6 +20,10 @@
             <result name="input">
                 /WEB-INF/jsp/new_product.jsp
             </result>
+        </action>
+        <action name="product"
+                class="com.example.productmanagement.action.ProductListAction">
+            <result name="success">/WEB-INF/jsp/product.jsp</result>
         </action>
     </package>
 </struts>

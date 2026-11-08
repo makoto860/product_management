@@ -3,7 +3,10 @@ package com.example.productmanagement.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.productmanagement.model.Product;
 
@@ -52,4 +55,40 @@ public class ProductDAO {
 	            pstmt.executeUpdate();
 	        }
     }
+
+	//一覧画面に表示する
+	public List<Product> findAll() throws Exception {
+
+		// MySQL JDBCドライバーを読み込む
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    List<Product> productList = new ArrayList<>();
+
+	    String sql = "SELECT * FROM products ORDER BY id DESC";
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement pstmt = conn.prepareStatement(sql);
+	         ResultSet rs = pstmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            Product product = new Product();
+
+	            product.setId(rs.getInt("id"));
+	            product.setName(rs.getString("name"));
+	            product.setPrice(rs.getInt("price"));
+
+	            Timestamp reservation = rs.getTimestamp("reservation");
+	            if (reservation != null) {
+	                product.setReservation(reservation.toString());
+	            }
+
+	            product.setStock(rs.getInt("stock"));
+	            product.setCaption(rs.getString("caption"));
+
+	            productList.add(product);
+	        }
+	    }
+
+	    return productList;
+	}
 }

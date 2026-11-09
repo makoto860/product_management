@@ -2,21 +2,67 @@
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 6.0//EN"
     "https://struts.apache.org/dtds/struts-6.0.dtd">
-
 <struts>
-
     <package name="product"
              extends="struts-default"
              namespace="/">
 
         <!-- 初期画面 -->
-        <action name="index"
+        <action name="new_product"
                 class="com.opensymphony.xwork2.ActionSupport">
-
-            <result name="success">/index.jsp</result>
-
+            <result name="success">/WEB-INF/jsp/new_product.jsp</result>
         </action>
-
+        <action name="productSave"
+                class="com.example.productmanagement.action.ProductAction">
+            <result name="success" type="redirectAction">
+                product
+            </result>
+            <result name="input">
+                /WEB-INF/jsp/new_product.jsp
+            </result>
+        </action>
+        <action name="product"
+            class="com.example.productmanagement.action.ProductListAction">
+            <!-- 商品削除メッセージ -->
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+            <result name="success">/WEB-INF/jsp/product.jsp</result>
+        </action>
+        <action name="productDetail"
+            class="com.example.productmanagement.action.ProductDetailAction">
+            <result name="success">/WEB-INF/jsp/productDetail.jsp</result>
+            <result name="error">/WEB-INF/jsp/productDetail.jsp</result>
+        </action>
+        <!-- 商品編集画面 -->
+        <action name="productEdit"
+            class="com.example.productmanagement.action.ProductEditAction">
+            <result name="success">/WEB-INF/jsp/edit_product.jsp</result>
+            <result name="error">/WEB-INF/jsp/productDetail.jsp</result>
+        </action>
+        <!-- 商品更新処理 -->
+        <action name="productUpdate"
+            class="com.example.productmanagement.action.ProductUpdateAction">
+            <result name="success" type="redirectAction">product</result>
+        </action>
+        <!-- 商品削除確認 -->
+        <action name="productDeleteConfirm"
+            class="com.example.productmanagement.action.ProductDeleteConfirmAction">
+            <result name="success">/WEB-INF/jsp/delete_confirm.jsp</result>
+            <result name="error">/WEB-INF/jsp/product.jsp</result>
+        </action>
+        <!-- 商品削除実行 -->
+        <action name="productDelete"
+            class="com.example.productmanagement.action.ProductDeleteAction">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="redirectAction">
+                <param name="actionName">product</param>
+                <param name="parse">true</param>
+            </result>
+        </action>
     </package>
-
 </struts>

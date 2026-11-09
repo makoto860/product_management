@@ -171,4 +171,20 @@ public class ProductDAO {
 	        pstmt.executeUpdate();
 	    }
 	}
+
+	//削除機能
+	public void delete(int id) throws Exception {
+
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    String sql = "DELETE FROM products WHERE id = ?";
+
+	    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+	        pstmt.setInt(1, id);
+
+	        pstmt.executeUpdate();
+	    }
+	}
 }

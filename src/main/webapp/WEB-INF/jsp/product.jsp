@@ -8,6 +8,7 @@
     <title>商品管理</title>
 </head>
 <body>
+	<s:actionmessage/>
     <h1>商品一覧</h1>
     <table border="1">
         <tr>
@@ -19,7 +20,6 @@
 			<th>説明</th>
 			<th>詳細</th>
         </tr>
-
         <s:iterator value="productList" var="product">
             <tr>
                 <td><s:property value="#product.id"/></td>
@@ -38,6 +38,12 @@
 				    <s:a action="productEdit">
 				        <s:param name="id" value="%{#product.id}"/>
 				        編集
+				    </s:a>
+				</td>
+				<td>
+				    <s:a action="productDeleteConfirm">
+				        <s:param name="id" value="%{#product.id}"/>
+				        削除
 				    </s:a>
 				</td>
             </tr>

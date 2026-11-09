@@ -22,7 +22,12 @@
             </result>
         </action>
         <action name="product"
-                class="com.example.productmanagement.action.ProductListAction">
+            class="com.example.productmanagement.action.ProductListAction">
+            <!-- 商品削除メッセージ -->
+            <interceptor-ref name="store">
+                <param name="operationMode">RETRIEVE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
             <result name="success">/WEB-INF/jsp/product.jsp</result>
         </action>
         <action name="productDetail"
@@ -40,6 +45,24 @@
         <action name="productUpdate"
             class="com.example.productmanagement.action.ProductUpdateAction">
             <result name="success" type="redirectAction">product</result>
+        </action>
+        <!-- 商品削除確認 -->
+        <action name="productDeleteConfirm"
+            class="com.example.productmanagement.action.ProductDeleteConfirmAction">
+            <result name="success">/WEB-INF/jsp/delete_confirm.jsp</result>
+            <result name="error">/WEB-INF/jsp/product.jsp</result>
+        </action>
+        <!-- 商品削除実行 -->
+        <action name="productDelete"
+            class="com.example.productmanagement.action.ProductDeleteAction">
+            <interceptor-ref name="store">
+                <param name="operationMode">STORE</param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+            <result name="success" type="redirectAction">
+                <param name="actionName">product</param>
+                <param name="parse">true</param>
+            </result>
         </action>
     </package>
 </struts>
